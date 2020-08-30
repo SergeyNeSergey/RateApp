@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">АктуальныеКурсыВалют</string>
+    <string name="enter_the_amount_of_money">Введите количество средств в рублях
+</string>
+    <string name="name_of_valute">Наименование
+        валюты
+</string>
+    <string name="course">Курс
+</string>
+    <string name="You_ll_get">Вы получите
+</string>
+</resources>
