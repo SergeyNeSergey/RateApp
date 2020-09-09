@@ -2,6 +2,7 @@ package ru.nikanorovsa.rate
 
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,16 +13,12 @@ import java.math.RoundingMode
 import java.text.DecimalFormat
 
 // Стандартный класс для создания RecyclerView, единственная его особенность в том, что он дополнительно
-//принимает var edit: Double и var rateChange: MutableList<Double>
-// var edit: Double - для обработки данных из editTextNumber макета основной активности и вывода
+//принимает var edit: Double  для обработки данных из editTextNumber макета основной активности и вывода
 // их в RecyclerView
-// var rateChange: MutableList<Double>  - для отслеживания изменения курса валют. В этом массиве
-//находятся члены являющие собой разницу предыдущего значения курса и нового значения.
 class Recycler(
     val rateList: MutableList<RateModel>,
     val context: Context,
-    var edit: Double,
-    var rateChange: MutableList<Double>
+    var edit: Double
 ) :
     RecyclerView.Adapter<Recycler.ViewHolder>() {
 
@@ -52,7 +49,9 @@ class Recycler(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val rate: RateModel = rateList[position]
-        val collorDouble = rateChange[position]
+        val collorDouble =
+            rateList[position].previous.toDouble() - rateList[position].value.toDouble()
+        Log.d("eee","$collorDouble")
         if (collorDouble == 0.0) {
 
             holder.course.setBackgroundColor(Color.YELLOW)

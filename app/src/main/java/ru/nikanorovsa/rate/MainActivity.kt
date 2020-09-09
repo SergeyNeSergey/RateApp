@@ -30,9 +30,6 @@ class MainActivity : AppCompatActivity() {
     //Интерфейс для запроса к базе данных
     private var rateDao: RateDao? = null
 
-    //Переменная для отслеживания изменений курса.
-    private var rateChange: MutableList<Double> = ArrayList()
-
 
     // В данном методе вызывается метод initRateList инициализируется база данных на измениния в
     //которой подписывается слушатель. Инициализируется класс Recycler. При первом запуске приложения
@@ -51,10 +48,10 @@ class MainActivity : AppCompatActivity() {
                     recycler.adapter = Recycler(
                         listRate,
                         applicationContext,
-                        editTextNumber.text.toString().toDouble(), rateChange
+                        editTextNumber.text.toString().toDouble()
                     )
                 } else {
-                    recycler.adapter = Recycler(listRate, applicationContext, 0.0, rateChange)
+                    recycler.adapter = Recycler(listRate, applicationContext, 0.0)
                 }
                 recycler.adapter!!.notifyDataSetChanged()
 
@@ -88,10 +85,6 @@ class MainActivity : AppCompatActivity() {
             override fun onNext(t: MutableList<RateModel>?) {
                 if (t == null) initRateList()
                 else {
-                    for (i in t) {
-                        rateChange.add(i.previous.toDouble() - i.value.toDouble())
-
-                    }
                     listRate = t
                 }
 
@@ -100,10 +93,10 @@ class MainActivity : AppCompatActivity() {
                     recycler.adapter = Recycler(
                         listRate,
                         applicationContext,
-                        editTextNumber.text.toString().toDouble(), rateChange
+                        editTextNumber.text.toString().toDouble()
                     )
                 } else {
-                    recycler.adapter = Recycler(listRate, applicationContext, 0.0, rateChange)
+                    recycler.adapter = Recycler(listRate, applicationContext, 0.0)
                 }
                 recycler.adapter!!.notifyDataSetChanged()
 
@@ -133,11 +126,6 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onNext(t: Json4KotlinBase?) {
                     if (t != null) {
-
-                        for (i in t.valute.values.toMutableList()) {
-                            rateChange.add(i.previous.toDouble() - i.value.toDouble())
-
-                        }
 
 
                         listRate = t.valute.values.toMutableList()
