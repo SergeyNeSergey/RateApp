@@ -2,25 +2,29 @@ package ru.nikanorovsa.rate.room
 
 import androidx.room.Dao
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
+import io.reactivex.Flowable
 import ru.nikanorovsa.rate.model.RateModel
-import rx.Observable
 
+// Интерфейс для обращения к базе данных Room
 @Dao
 interface RateDao {
 
     @Query("SELECT * FROM rate_model")
-    fun getAll(): Observable<RateModel>
+    fun getAll(): Flowable<MutableList<RateModel>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    @JvmSuppressWildcards
-    fun insertAll(rateModelList: List<RateModel>)
+    @Insert
+    fun insertAll(rateModelList: MutableList<RateModel>)
 
-
-    @Query("SELECT * FROM rate_model WHERE id LIKE :id")
-    fun findById(id: String): Observable<RateModel>
 
     @Query("DELETE FROM rate_model")
     fun deleteAllTable()
+
+    @Transaction
+    fun updateData(rate: MutableList<RateModel>) {
+        deleteAllTable()
+        insertAll(rate)
+
+    }
 }

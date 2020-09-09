@@ -23,6 +23,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -34,16 +41,21 @@ dependencies {
     // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
+    implementation("com.squareup.okhttp3:logging-interceptor:4.8.1")
 
     // rxjava
-    implementation 'io.reactivex:rxjava:1.2.10'
-    implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'androidx.room:room-rxjava2:2.2.2'
 
     // room
     implementation "androidx.room:room-runtime:2.2.5"
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     kapt "androidx.room:room-compiler:2.2.5"
+    implementation 'android.arch.persistence.room:rxjava2:1.0.0-alpha1'
+    implementation "android.arch.persistence.room:runtime:1.0.0"
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

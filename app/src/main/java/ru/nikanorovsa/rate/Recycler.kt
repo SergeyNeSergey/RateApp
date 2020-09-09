@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_main.view.editTextNumber
 import kotlinx.android.synthetic.main.for_view_holder.view.*
 import ru.nikanorovsa.rate.model.RateModel
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
-
-class Recycler(val rateList: MutableList<RateModel>, val context: Context) :
+// Стандартный класс для создания RecyclerView, единственная его особенность в том, что он дополнительно
+//принимает var edit: Double для обработки данных из editTextNumber макета основной активности и вывода
+// их в RecyclerView
+class Recycler(val rateList: MutableList<RateModel>, val context: Context, var edit: Double) :
     RecyclerView.Adapter<Recycler.ViewHolder>() {
 
     override fun getItemCount(): Int {
@@ -23,25 +26,33 @@ class Recycler(val rateList: MutableList<RateModel>, val context: Context) :
                 R.layout.for_view_holder,
                 parent,
                 false
-            )
+            ), edit
+
         )
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View, edit: Double) : RecyclerView.ViewHolder(view) {
+
 
         val valuteName = view.name_of_valute
         val course = view.course
         val youGet = view.youGet
-        var cash = view.editTextNumber.text.toString().toDouble()
+        var cash = edit
     }
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val rate: RateModel = rateList[position]
 
+
         holder.valuteName.text = rate.name
         holder.course.text = rate.value
-        holder.youGet.text = (rate.value.toDouble() * holder.cash).toString()
+        val dec = DecimalFormat("#.####")
+        dec.roundingMode = RoundingMode.CEILING
+        val a = (holder.cash / rate.value.toDouble()).toBigDecimal()
+        holder.youGet.text = dec.format(a).toString()
     }
+
+
 }
 
