@@ -2,7 +2,6 @@ package ru.nikanorovsa.rate
 
 import android.content.Context
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,28 +43,29 @@ class Recycler(
         val course = view.course
         val youGet = view.youGet
         var cash = edit
+        val v = view.textV
+        val v1 = view.textV1
     }
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val rate: RateModel = rateList[position]
+        holder.v.setBackgroundColor(Color.BLACK)
+        holder.v1.setBackgroundColor(Color.BLACK)
         val collorDouble =
             rateList[position].previous.toDouble() - rateList[position].value.toDouble()
-        Log.d("eee","$collorDouble")
         if (collorDouble == 0.0) {
 
-            holder.course.setBackgroundColor(Color.YELLOW)
+            holder.course.setTextColor(Color.BLUE)
 
         }
         if (collorDouble > 0.0) {
 
-            holder.course.setBackgroundColor(Color.GREEN)
-
+            holder.course.setTextColor(Color.GREEN)
         }
         if (collorDouble < 0.0) {
 
-            holder.course.setBackgroundColor(Color.RED)
-
+            holder.course.setTextColor(Color.RED)
         }
 
 
