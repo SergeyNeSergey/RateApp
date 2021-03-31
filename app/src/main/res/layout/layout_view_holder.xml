@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/viewHolderLayoutBorder"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/viewHolderLayoutBorder3" />
 
     <TextView
         android:id="@+id/viewHolderLayoutBorder"
@@ -34,9 +34,10 @@
         android:layout_weight="2"
         android:textColor="@color/colorBlack"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewHolderLayoutNameOfValuta"
         app:layout_constraintEnd_toStartOf="@+id/viewHolderLayoutBorder2"
         app:layout_constraintStart_toEndOf="@+id/viewHolderLayoutBorder"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/viewHolderLayoutNameOfValuta" />
 
     <TextView
         android:id="@+id/viewHolderLayoutBorder2"
@@ -51,13 +52,14 @@
         android:id="@+id/viewHolderLayoutResult"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_weight="1"
         android:textColor="@color/colorBlack"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/viewHolderLayoutNameOfValuta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/viewHolderLayoutBorder2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/viewHolderLayoutNameOfValuta" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/viewHolderLayoutGuideline"
@@ -72,5 +74,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.80" />
+
+    <TextView
+        android:id="@+id/viewHolderLayoutBorder3"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/colorClearBlack"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,18 +1,16 @@
 package ru.nikanorovsa.rate.data.room
 
-import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
+import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "rate_model")
-@Parcelize
 data class RateModel(
-     @PrimaryKey val id: String,
-     val num_code: Int,
-     val char_code: String,
-     val nominal: Int,
-     val name: String,
-     val value: String,
-     val previous: String
-) : Parcelable
+     @SerializedName("ID") @PrimaryKey var id : String,
+     @SerializedName("NumCode") var numCode : String,
+     @SerializedName("CharCode") var charCode : String,
+     @SerializedName("Nominal") var nominal : Int,
+     @SerializedName("Name") var name : String,
+     @SerializedName("Value") var value : Double,
+     @SerializedName("Previous") var previous : Double
+)

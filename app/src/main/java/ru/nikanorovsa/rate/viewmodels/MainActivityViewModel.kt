@@ -15,16 +15,16 @@ import ru.nikanorovsa.rate.data.room.RateDao
 
 class MainActivityViewModel @ViewModelInject constructor(
     private val rateDao: RateDao,
-    private val repository: RateController,
-    @ApplicationContext context: Context
+    private val repository: RateController
 ) : ViewModel() {
 
-    val status = MutableLiveData(Status.EMPTY)
+    val status = MutableLiveData(Status.LOADING)
     val rate = rateDao.getAll().asLiveData()
 
     fun initRateList() {
         viewModelScope.launch(createDefaultExceptionHandler()) {
-            rateDao.insertAll(repository.getRateAsync().valuta.values.toList())
+            rateDao.updateData(repository.getRateAsync().valute.values.toList())
+            status.value = Status.SUCCESS
         }
     }
 

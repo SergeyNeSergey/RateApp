@@ -9,14 +9,14 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 import ru.nikanorovsa.rate.R
 import ru.nikanorovsa.rate.databinding.ActivityMainBinding
 import ru.nikanorovsa.rate.ui.adapters.RateAdapter
 import ru.nikanorovsa.rate.viewmodels.MainActivityViewModel
 import ru.nikanorovsa.rate.viewmodels.Status
 
-@EntryPoint
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val viewModel : MainActivityViewModel by viewModels()

@@ -1,14 +1,12 @@
 package ru.nikanorovsa.rate.ui.adapters
 
-import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.nikanorovsa.rate.R
 import ru.nikanorovsa.rate.data.room.RateModel
 import ru.nikanorovsa.rate.databinding.LayoutViewHolderBinding
 import java.math.RoundingMode
@@ -18,12 +16,12 @@ class RateAdapter(private var multiplier: Double = 0.0) : ListAdapter<RateModel,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RateViewHolder {
         return RateViewHolder(
-            LayoutViewHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false), multiplier)
+            LayoutViewHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: RateViewHolder, position: Int) {
         val rate: RateModel = getItem(position)
-        holder.bind(rate)
+        holder.bind(rate, multiplier)
     }
 
     fun changeMultiplier(multi: Double) {
@@ -31,19 +29,19 @@ class RateAdapter(private var multiplier: Double = 0.0) : ListAdapter<RateModel,
         notifyDataSetChanged()
     }
 
-    class RateViewHolder(private val binding: LayoutViewHolderBinding, private val multiplier: Double) :
+    class RateViewHolder(private val binding: LayoutViewHolderBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(rate: RateModel) {
-            val change = rate.previous.toDouble() - rate.value.toDouble()
+        fun bind(rate: RateModel, multiplier: Double) {
+            val change = rate.previous - rate.value
             binding.apply {
+                val dec = DecimalFormat("#.##")
+                dec.roundingMode = RoundingMode.CEILING
                 viewHolderLayoutNameOfValuta.text = rate.name
                 if (change > 0.0) viewHolderLayoutCourse.setTextColor(Color.GREEN)
                 if (change < 0.0) viewHolderLayoutCourse.setTextColor(Color.RED)
                 if (change == 0.0) viewHolderLayoutCourse.setTextColor(Color.BLUE)
-                viewHolderLayoutCourse.text = rate.value
-                val dec = DecimalFormat("#.##")
-                dec.roundingMode = RoundingMode.CEILING
-                val resultOfCount = (multiplier / rate.value.toDouble()).toBigDecimal()
+                viewHolderLayoutCourse.text = dec.format(rate.value.toBigDecimal()).toString()
+                val resultOfCount = (multiplier / rate.value).toBigDecimal()
                 viewHolderLayoutResult.text = dec.format(resultOfCount).toString()
             }
         }

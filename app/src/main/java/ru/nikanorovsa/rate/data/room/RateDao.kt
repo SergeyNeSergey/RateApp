@@ -19,7 +19,7 @@ interface RateDao {
     suspend fun deleteAllTable()
 
     @Transaction
-    suspend fun updateData(rate: MutableList<RateModel>) {
+    suspend fun updateData(rate: List<RateModel>) {
         deleteAllTable()
         insertAll(rate)
     }
